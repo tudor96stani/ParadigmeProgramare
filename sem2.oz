@@ -1,4 +1,5 @@
 %1
+
 declare
 fun { Mul N K }
    if N==K then N
@@ -66,6 +67,3 @@ end
 {Browse {Reverse [1 2 3]}}
 {Browse {Rev [5 6 7 8 9] nil}}
 
-%3
-declare
-fun {
