@@ -67,3 +67,46 @@ end
 {Browse {Reverse [1 2 3]}}
 {Browse {Rev [5 6 7 8 9] nil}}
 
+
+declare
+fun lazy {Sieve L}
+  case L of
+        nil then nil
+    []  H|T then H|{Sieve {Filter T H}}
+    end
+end
+
+fun lazy {Filter L H}
+  case L of
+        nil then nil
+    []  A|As then  if (A mod H == 0) then {Filter As H}
+                  else A|{Filter As H} end
+  end
+end
+
+
+fun lazy {Gen N}
+  N | {Gen N+1}
+end
+
+
+fun {Prime}
+  {Sieve {Gen 2}}
+end
+
+fun {Find L N}
+   case L of
+      H|T then if (H < N) then {Find T N} else H end
+   end
+end
+
+fun {GetAfter N}
+   local R in
+      R = {Prime}
+      {Find R N}
+   end
+end
+
+L = {GetAfter 20}
+
+{Browse L}

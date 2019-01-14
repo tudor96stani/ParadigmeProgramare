@@ -6,7 +6,7 @@ X3=node(left:nil right:nil value:1)
 X4=node(left:nil right:nil value:3)
 X5=node(left:nil right:nil value:5)
 X6=node(left:nil right:nil value:7)
-%{Browse Root}
+{Browse Root}
 declare
 fun {MinOfTree X}
    if X.left\=nil
@@ -53,6 +53,54 @@ fun {IsSorted X}
       true
    end
 end
-%{Browse {MinOfTree Root}}
-%{Browse {MaxOfTree Root}}
+{Browse {MinOfTree Root}}
+{Browse {MaxOfTree Root}}
+{Browse {IsSorted Root}}
+
+fun {CheckIfLeaf Node}
+    if Node == nil then false
+    else
+        if {And Node.left==nil Node.right==nil} then true
+        else false
+        end
+    end
+end
+
+
+fun {Insert Tree Value}
+        if {CheckIfLeaf Tree} then 
+            if Value < Tree.value then
+                node( left: node(nil nil Value) right:nil value:Tree.value)
+            else
+                node( left: nil right: node(nil nil Value) value:Tree.value) 
+            end
+        else
+            local LT RT Res in
+
+                if Value < Tree.value then
+                    if Tree.left \= nil 
+                        then LT = {Insert Tree.left Value }
+                    else LT= nil
+                    end
+                else
+                    LT = Tree.left
+                end
+
+                if Value >= Tree.value then
+                    if Tree.right \= nil 
+                        then RT = {Insert Tree.right Value }
+                    else RT = nil
+                    end
+                else
+                    RT = Tree.right
+                end
+
+                Res = node(left:LT right:RT value:Tree.value)
+
+                Res
+            end
+    end
+end
+
+{Browse {Insert Root 12}}
 {Browse {IsSorted Root}}
